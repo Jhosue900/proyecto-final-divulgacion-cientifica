@@ -40,7 +40,7 @@ const PORT = process.env.PORT || 3001;
 // --- MODO TESTEO ---
 // Cambia a 1 para producción (puntos normales)
 // Cambia a 10 o 15 para testear rápido (llega al clímax en 3-4 preguntas)
-const TEST_MULTIPLIER = 10; 
+const TEST_MULTIPLIER = 2; 
 
 // --- ESTADO EN MEMORIA PARA LAS PREGUNTAS ---
 const sessionQueues = {};
