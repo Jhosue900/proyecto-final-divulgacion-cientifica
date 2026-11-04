@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a1f12;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+
+  body {
+    font-family: 'Archivo', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-stroke-black {
+    -webkit-text-stroke: 2px #000;
+    text-shadow: 4px 4px 0px #000;
+  }
+}
+
+@keyframes float-sway {
+  0%, 100% { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+  50% { transform: translate(8px, -12px) rotate(calc(var(--rot, 0deg) + 4deg)); }
+}
+
+@keyframes float-sway-2 {
+  0%, 100% { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+  50% { transform: translate(-10px, 14px) rotate(calc(var(--rot, 0deg) - 5deg)); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.animate-sway {
+  animation: float-sway 9s ease-in-out infinite;
+}
+
+.animate-sway-2 {
+  animation: float-sway-2 11s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+.animate-fade-in-down {
+  animation: fade-in-down 0.8s ease-out forwards;
+}
