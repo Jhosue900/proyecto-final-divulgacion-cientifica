@@ -4,7 +4,35 @@ import { supabase } from './src/db/supabaseClient.js';
 import { getShuffledBank } from './questions.js';
 
 const app = express();
-app.use(cors());
+
+// --- CONFIGURACIÓN DE CORS PARA PRODUCCIÓN ---
+const allowedOrigins = [
+  'http://localhost:5173', // Desarrollo local
+  'http://localhost:3000', // Por si acaso
+  process.env.FRONTEND_URL // URL de Vercel (se configura en Render)
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Permitir peticiones sin origin (Postman, apps móviles, etc.)
+    if (!origin) return callback(null, true);
+    
+    // Si FRONTEND_URL no está configurado, permitimos todo (útil en el primer deploy)
+    if (!process.env.FRONTEND_URL) {
+      return callback(null, true);
+    }
+    
+    // Si el origin está en la lista, lo permitimos
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('Bloqueado por CORS:', origin);
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
@@ -12,7 +40,7 @@ const PORT = process.env.PORT || 3001;
 // --- MODO TESTEO ---
 // Cambia a 1 para producción (puntos normales)
 // Cambia a 10 o 15 para testear rápido (llega al clímax en 3-4 preguntas)
-const TEST_MULTIPLIER = 10; 
+const TEST_MULTIPLIER = 2; 
 
 // --- ESTADO EN MEMORIA PARA LAS PREGUNTAS ---
 const sessionQueues = {};
